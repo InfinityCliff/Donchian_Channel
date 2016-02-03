@@ -9,12 +9,12 @@ print('numpy: ', np.__version__)
 print('panda: ', pd.__version__)
 
 MagicNumber = "150000"
-
+datapath = "../Donchian_Channel_data/"
 #-----------------------------------------------------------------
 # read in Indicator data into dataframe
 #-----------------------------------------------------------------
 def read_indicator_data(head=False):
-    dataframe = pd.read_csv('data/' + MagicNumber + '_Indicators.csv')
+    dataframe = pd.read_csv(datapath + MagicNumber + '_Indicators.csv')
     dataframe.rename(columns={'Date': 'DateTime'}, inplace=True)      # rename 'Date' column to 'DateTime'
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])     # convert 'DateTime' to pd.datetime
     dataframe['Seconds'] = list(map(seconds, dataframe['DateTime']))  # calc seconds
@@ -37,7 +37,7 @@ def read_indicator_data(head=False):
 # read in order data into dataframe
 #-----------------------------------------------------------------
 def read_order_data(head=False):
-    dataframe = pd.read_csv('data/' + MagicNumber + '_Orders.csv')
+    dataframe = pd.read_csv(datapath + MagicNumber + '_Orders.csv')
     dataframe['DateTime'] = dataframe['Open Time']  # Copy 'Open Time' to 'DateTime' and preserve original
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])     # convert 'DateTime' to pd.datetime
     dataframe['Seconds'] = list(map(seconds, dataframe['DateTime']))  # calc seconds
@@ -52,7 +52,7 @@ def read_order_data(head=False):
 # read in price history into dataframe
 #-----------------------------------------------------------------
 def read_price_history(start_date, end_date, head=False):
-    dataframe = pd.read_csv('data/EURUSD1_2015.csv', header=None)
+    dataframe = pd.read_csv(datapath + 'EURUSD1_2015.csv', header=None)
     dataframe.columns = ['Date', 'Time', 'Open', 'High', 'Low', 'Close', 'Ticks']  # Name Columns
     dataframe['DateTime'] = dataframe['Date'] + ' ' + dataframe['Time']  # Combine 'Date' and 'Time' to 'DateTime'
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])        # convert 'DateTime' to pd.datetime
@@ -109,6 +109,11 @@ history = read_price_history(start, end)
 #-----------------------------------------------------------------
 # pickle data files
 #-----------------------------------------------------------------
-indicator.to_pickle('data/indicator.pickle')
+print('Pickling Indicator Data')
+indicator.to_pickle(datapath + 'indicator.pickle')
+
+#print('Pickling Order Data')
 # orders.to_pickle('data/orders.pickle')
-history.to_pickle('data/history.pickle')
+
+print('Pickling History Data')
+history.to_pickle(datapath + 'history.pickle')
