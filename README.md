@@ -1,6 +1,6 @@
 # Donchian_Channel
 Evaluate results of Donchian Channel EA
-
+test change
 1. Run Init_pickle_Data.py
     - opens csv files output by MetaTrader
     - reads in and does some initial processing
@@ -33,7 +33,8 @@ DEPRECATED THOUGHTS
 2.  Run Add_Trends.py
     - opens pickled data files
     - adds trends based on pre-defined ranges from viewing order data
-## need to look into module to chart order data and maybe run an MA to set/help determine trends
+
+need to look into module to chart order data and maybe run an MA to set/help determine trends
 
 old 3. Was looking to use Compute_Indicators.py & Indicators.py to add indicators in python, but decided
     against it.  - may not compute exactly the same as in MT4, will ultimately be time
