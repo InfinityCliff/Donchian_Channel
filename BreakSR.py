@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import pandas as pd
+from Functions import datapath
 
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
@@ -26,15 +27,14 @@ def break_resistance(price, resistance):
 #-----------------------------------------------------------------
 # read data
 #-----------------------------------------------------------------
-
 print('Reading Indicator data')
-indicator = pd.read_pickle('data/indicator_wStats.pickle')
+indicator = pd.read_pickle(datapath + 'indicator_wStats.pickle')
 
 # print('Reading Order data')
-# orders = pd.read_pickle('data/orders_wStats.pickle')
+# orders = pd.read_pickle(datapath + 'orders_wStats.pickle')
 
 print('Reading Price History data')
-history = pd.read_pickle('data/history_wStats.pickle')
+history = pd.read_pickle(datapath + 'history_wStats.pickle')
 
 #-----------------------------------------------------------------
 # merge history and indicator files, both have same number of rows
@@ -68,7 +68,8 @@ print(len(history_M_Indicator))
 #-----------------------------------------------------------------
 # pickle data files
 #-----------------------------------------------------------------
-history_M_Indicator.to_pickle('data/history_M_Indicator.pickle')
+print('Pickling History Data merged with Indicator')
+history_M_Indicator.to_pickle(datapath + 'history_M_Indicator.pickle')
 
 
 #-----------------------------------------------------------------

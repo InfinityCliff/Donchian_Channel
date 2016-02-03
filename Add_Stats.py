@@ -1,6 +1,8 @@
 import sys
 import numpy as np
 import pandas as pd
+from Functions import datapath
+
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
 print('panda: ', pd.__version__)
@@ -40,19 +42,19 @@ def rolling_profit_count(dataframe):
 #-----------------------------------------------------------------
 
 print('Reading Indicator data')
-indicator = pd.read_pickle('data/indicator.pickle')
+indicator = pd.read_pickle(datapath + 'indicator.pickle')
 #print(indicator.tail())
 # get rid of ambiguous columns 'Ticket', 'Open/Close'
 cols = indicator.columns.tolist()
 cols = cols[0:2] + cols[4:]
 indicator = indicator[cols]
-print(indicator.head())
+#print(indicator.head())
 
 # print('Reading Order data')
 # orders = pd.read_pickle('data/orders.pickle')
 
 print('Reading Price History data')
-history = pd.read_pickle('data/history.pickle')
+history = pd.read_pickle(datapath + 'history.pickle')
 #print(history.tail())
 
 #-----------------------------------------------------------------
@@ -64,6 +66,11 @@ add_rolling_stats(history, ['Close'])
 #-----------------------------------------------------------------
 # pickle data files
 #-----------------------------------------------------------------
-indicator.to_pickle('data/indicator_wStats.pickle')
-# orders.to_pickle('data/orders_wStats.pickle')
-history.to_pickle('data/history_wStats.pickle')
+print('Pickling Indicator Data with Stats')
+indicator.to_pickle(datapath + 'indicator_wStats.pickle')
+
+#print('Pickling Order Data with Stats')
+# orders.to_pickle(datapath + 'orders_wStats.pickle')
+
+print('Pickling History Data with Stats')
+history.to_pickle(datapath + 'history_wStats.pickle')

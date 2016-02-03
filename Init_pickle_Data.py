@@ -3,13 +3,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import datetime as dt
-from Functions import seconds
+from Functions import seconds, datapath
+
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
 print('panda: ', pd.__version__)
 
 MagicNumber = "150000"
-datapath = "../Donchian_Channel_data/"
+
 #-----------------------------------------------------------------
 # read in Indicator data into dataframe
 #-----------------------------------------------------------------
