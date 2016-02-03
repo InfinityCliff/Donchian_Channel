@@ -18,9 +18,14 @@ Evaluate results of Donchian Channel EA
     - determines when support/resistance line is broken
     - pickles history_M_Indicator.pickle
 
-GENERAL INFO:
+4. Check_PL.py
+	- "should" search through price history data (history_M_Indicator.pickle) and find where the price [bar-1] breaks the support or resistance line
+	- then will look forward to determine if BUY & SELL will end in a profit or a loss
+	- plan is from here to determien if there is some correlation between PL's and some of the indicator data to determien when to open order and what type of order it should before
+	
+GENERAL FILE INFO:
 - Functions.py - to contain common used functions across files
-
+- tester_check.ipynb - used to check and devlop Check_PL.py
 
 NEXT STEPS ----
 - go back to MT and remove () from indicator data, its a pain to type and not needed
