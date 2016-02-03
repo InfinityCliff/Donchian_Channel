@@ -1,6 +1,6 @@
 # Donchian_Channel
 Evaluate results of Donchian Channel EA
-test change
+
 1. Run Init_pickle_Data.py
     - opens csv files output by MetaTrader
     - reads in and does some initial processing
@@ -17,7 +17,7 @@ test change
     - pickles history_M_Indicator.pickle
 
 GENERAL INFO:
-Functions.py - to contain common used functions across files
+- Functions.py - to contain common used functions across files
 
 
 NEXT STEPS ----
@@ -25,7 +25,7 @@ NEXT STEPS ----
 - look ahead in data determine which ones would be profit/loss
 
 ---------------------------------------------------------------------------------------------------------------------
-DEPRECATED THOUGHTS
+# DEPRECATED THOUGHTS
 
 -not working, for some reason not getting same results out of MT that was before so trends look different
    (note for future eval need to have better documentation of runs with all conditions, including spread, etc, be better
@@ -50,5 +50,5 @@ no longer relevant - order data not in indicator data.  make df of orders from i
     merge with order data frame, want ind, stats at order open, order close info, profit, etc
 
 ?? do I need to have balance graph (may make some charts make more sense) can pull from MT report, no wo order data
-    can not do
+- can not do
 ---------------------------------------------------------------------------------------------------------------------
