@@ -2,6 +2,8 @@ import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os.path
+import time
 import datetime as dt
 from Functions import seconds, datapath
 
@@ -9,12 +11,22 @@ print('system: ', sys.version)
 print('numpy: ', np.__version__)
 print('panda: ', pd.__version__)
 
-MagicNumber = "150000"
+#-----------------------------------------------------------------
+# Init variables
+#-----------------------------------------------------------------
+MagicNumber = "160001"
+
+read_indicator = True
+read_history = False
+read_order = True
 
 #-----------------------------------------------------------------
 # read in Indicator data into dataframe
 #-----------------------------------------------------------------
 def read_indicator_data(head=False):
+    file = datapath + MagicNumber + '_Indicators.csv'
+    print('-> reading -- ' + file)
+    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
     dataframe = pd.read_csv(datapath + MagicNumber + '_Indicators.csv')
     dataframe.rename(columns={'Date': 'DateTime'}, inplace=True)      # rename 'Date' column to 'DateTime'
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])     # convert 'DateTime' to pd.datetime
@@ -38,6 +50,9 @@ def read_indicator_data(head=False):
 # read in order data into dataframe
 #-----------------------------------------------------------------
 def read_order_data(head=False):
+    file = datapath + MagicNumber + '_Orders.csv'
+    print('-> reading -- ' + file)
+    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
     dataframe = pd.read_csv(datapath + MagicNumber + '_Orders.csv')
     dataframe['DateTime'] = dataframe['Open Time']  # Copy 'Open Time' to 'DateTime' and preserve original
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])     # convert 'DateTime' to pd.datetime
@@ -53,7 +68,10 @@ def read_order_data(head=False):
 # read in price history into dataframe
 #-----------------------------------------------------------------
 def read_price_history(start_date, end_date, head=False):
-    dataframe = pd.read_csv(datapath + 'EURUSD1_2015.csv', header=None)
+    file = datapath + 'EURUSD1_2015.csv'
+    print('-> reading -- ' + file)
+    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
+    dataframe = pd.read_csv(file, header=None)
     dataframe.columns = ['Date', 'Time', 'Open', 'High', 'Low', 'Close', 'Ticks']  # Name Columns
     dataframe['DateTime'] = dataframe['Date'] + ' ' + dataframe['Time']  # Combine 'Date' and 'Time' to 'DateTime'
     dataframe['DateTime'] = pd.to_datetime(dataframe['DateTime'])        # convert 'DateTime' to pd.datetime
@@ -94,27 +112,40 @@ def rolling_profit_count(dataframe):
 #-----------------------------------------------------------------
 # read data
 #-----------------------------------------------------------------
+print('-----------------------------------------------------------------')
+if read_indicator:
+    print('Reading Indicator data')
+    indicator = read_indicator_data()
 
-print('Reading Indicator data')
-indicator = read_indicator_data()
+if read_order:
+    print('Reading Order data')
+    orders = read_order_data()
+    # plot_order_data()
 
-#print('Reading Order data')
-# orders = read_order_data()
-#plot_order_data()
-
-print('Reading Price History data')
-start = dt.datetime(2015, 1, 1)
-end = dt.datetime(2015, 12, 31)
-history = read_price_history(start, end)
+if read_history:
+    print('Reading Price History data')
+    start = dt.datetime(2015, 1, 1)
+    end = dt.datetime(2015, 12, 31)
+    history = read_price_history(start, end)
 
 #-----------------------------------------------------------------
 # pickle data files
 #-----------------------------------------------------------------
-print('Pickling Indicator Data')
-indicator.to_pickle(datapath + 'indicator.pickle')
+print('-----------------------------------------------------------------')
+if read_indicator:
+    print('Pickling Indicator Data')
+    file = datapath + MagicNumber + '_indicator.pickle'
+    print('-> writing -- ' + file)
+    indicator.to_pickle(file)
 
-#print('Pickling Order Data')
-# orders.to_pickle('data/orders.pickle')
+if read_order:
+    print('Pickling Order Data')
+    file = datapath + MagicNumber + '_orders.pickle'
+    print('-> writing -- ' + file)
+    orders.to_pickle(file)
 
-print('Pickling History Data')
-history.to_pickle(datapath + 'history.pickle')
+if read_history:
+    print('Pickling History Data')
+    file = datapath + MagicNumber + '_history.pickle'
+    print('-> writing -- ' + file)
+    history.to_pickle(file)
