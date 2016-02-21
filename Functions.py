@@ -7,6 +7,10 @@ import winsound
 #-----------------------------------------------------------------
 datapath = "data/"
 
+read_indicator = True
+read_history = False
+read_order = True
+
 #-----------------------------------------------------------------
 # function to convert 'DateTime' to seconds
 #-----------------------------------------------------------------

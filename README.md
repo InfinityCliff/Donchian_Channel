@@ -24,7 +24,7 @@ Evaluate results of Donchian Channel EA
 	- plan is from here to determien if there is some correlation between PL's and some of the indicator data to determien when to open order and what type of order it should before
 
 5.  Going in a new direction from step 3 and 4, going to run EA for 1 year backtest and 
-	- then pull data in, Init_pickle_Data.py should to this
+	- then pull data in, Init_pickle_Data.py should to this (Used donchian_channelEA_test to do this, MN 160001)
 	- determine which orders where profit/loss (this may occur in one of the files already)
 	- look for strong correlations between profits and weak corelations to loss
 
