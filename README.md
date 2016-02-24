@@ -12,20 +12,12 @@ Evaluate results of Donchian Channel EA
     - opens pickled files and adds rolling mean, std, and var for each indicator value and Close price of history
     - re-pickles to file ".._wStats.pickle"
 
-3. Run BreakSR.py
-    - opens ..wStats
-    - merged indicator with history
-    - determines when support/resistance line is broken
-    - pickles history_M_Indicator.pickle
+3. Run Merge_Data.py
+	- Merges History and/or order data with indicator data
+	- pickes to file ".._M_Indicator.pickle"
 
-4. Check_PL.py
-	- "should" search through price history data (history_M_Indicator.pickle) and find where the price [bar-1] breaks the support or resistance line
-	- then will look forward to determine if BUY & SELL will end in a profit or a loss
-	- plan is from here to determien if there is some correlation between PL's and some of the indicator data to determien when to open order and what type of order it should before
-
-5.  Going in a new direction from step 3 and 4, going to run EA for 1 year backtest and 
-	- then pull data in, Init_pickle_Data.py should to this (Used donchian_channelEA_test to do this, MN 160001)
-	- determine which orders where profit/loss (this may occur in one of the files already)
+4.  Eval_Corr.py 
+	- determine which orders where profit/loss
 	- look for strong correlations between profits and weak corelations to loss
 
 GENERAL FILE INFO:
@@ -44,7 +36,16 @@ DEPRECATED THOUGHTS
 2.  Run Add_Trends.py
     - opens pickled data files
     - adds trends based on pre-defined ranges from viewing order data
+3. Run BreakSR.py
+    - opens ..wStats
+    - merged indicator with history
+    - determines when support/resistance line is broken
+    - pickles history_M_Indicator.pickle
 
+4. Check_PL.py
+	- "should" search through price history data (history_M_Indicator.pickle) and find where the price [bar-1] breaks the support or resistance line
+	- then will look forward to determine if BUY & SELL will end in a profit or a loss
+	- plan is from here to determien if there is some correlation between PL's and some of the indicator data to determien when to open order and what type of order it should before
 need to look into module to chart order data and maybe run an MA to set/help determine trends
 
 old 3. Was looking to use Compute_Indicators.py & Indicators.py to add indicators in python, but decided against it.  - may not compute exactly the same as in MT4, will ultimately be time consuming and due to first reason not ultimately worth it
