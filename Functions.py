@@ -6,7 +6,7 @@ import winsound
 # Common Variables
 #-----------------------------------------------------------------
 datapath = "data/"
-
+MagicNumber = "160001"
 read_indicator = True
 read_history = False
 read_order = True

@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 import os.path
 import time
-from Functions import datapath, read_history, read_indicator, read_order
-from Init_pickle_Data import MagicNumber
+from Functions import datapath, read_history, read_indicator, read_order, MagicNumber
 
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
@@ -20,7 +19,6 @@ def add_rolling_stats(dataframe, fields, window=15, head=False):
         dataframe[field + '-Roll_Mean'] = pd.rolling_mean(dataframe[field], window)
         dataframe[field + '-Roll_std'] = pd.rolling_std(dataframe[field], window)
         dataframe[field + '-Roll_var'] = pd.rolling_var(dataframe[field], window)
-    # Order Dataframe with Trends added
     if head:  # print head if passed value
         dataframe[['DateTime', 'Ticket', 'Profit', 'Trend', 'Roll_Profit_Count', 'Roll_Mean', 'Roll_std']].head(head)
     return dataframe
@@ -59,7 +57,7 @@ if read_order:
     print('-> reading -- ' + file)
     print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
     orders = pd.read_pickle(file)
-    print(orders.head())
+
 if read_history:
     print('Reading Price History data')
     file = datapath + MagicNumber + '_history.pickle'
@@ -73,9 +71,11 @@ if read_history:
 if read_indicator:
     print('Calculating stats for Indicator Data')
     add_rolling_stats(indicator, indicator.columns[4:])
+
 if read_order:
     print('Calculating stats for Order Data')
-    # add_rolling_stats()
+    add_rolling_stats(orders, ('Open Price', 'Close Price', 'Profit'))
+
 if read_history:
     print('Calculating stats for History Data')
     add_rolling_stats(history, ['Close'])

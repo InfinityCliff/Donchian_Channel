@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os.path
 import time
 import datetime as dt
-from Functions import seconds, datapath, read_history, read_indicator, read_order
+from Functions import seconds, datapath, read_history, read_indicator, read_order, MagicNumber
 
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
@@ -14,7 +14,7 @@ print('panda: ', pd.__version__)
 #-----------------------------------------------------------------
 # Init variables
 #-----------------------------------------------------------------
-MagicNumber = "160001"
+
 
 #-----------------------------------------------------------------
 # read in Indicator data into dataframe
