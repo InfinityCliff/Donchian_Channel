@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os.path
 import time
 import datetime as dt
-from Functions import seconds, datapath, read_history, read_indicator, read_order, MagicNumber
+from Functions import seconds, datapath, read_history, read_indicator, read_order, MagicNumber, pickle_write
 
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
@@ -129,19 +129,17 @@ if read_history:
 #-----------------------------------------------------------------
 print('-----------------------------------------------------------------')
 if read_indicator:
-    print('Pickling Indicator Data')
-    file = datapath + MagicNumber + '_indicator.pickle'
-    print('-> writing -- ' + file)
-    indicator.to_pickle(file)
+    pickle_write(indicator, datapath, MagicNumber, 
+        'indicator.pickle', 
+        'Pickling Indicator Data')
 
 if read_order:
-    print('Pickling Order Data')
-    file = datapath + MagicNumber + '_orders.pickle'
-    print('-> writing -- ' + file)
-    orders.to_pickle(file)
+    pickle_write(orders, datapath, MagicNumber, 
+        'orders.pickle', 
+        'Pickling Indicator Data')    
 
 if read_history:
-    print('Pickling History Data')
-    file = datapath + MagicNumber + '_history.pickle'
-    print('-> writing -- ' + file)
-    history.to_pickle(file)
+    pickle_write(history, datapath, MagicNumber, 
+        'history.pickle', 
+        'Pickling Price History Data')    
+

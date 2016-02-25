@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import os.path
 import time
-from Functions import datapath, read_history, read_indicator, read_order, MagicNumber
+from Functions import datapath, read_history, read_indicator, read_order, MagicNumber, pickle_write, pickle_read
 
 print('system: ', sys.version)
 print('numpy: ', np.__version__)
@@ -42,28 +42,22 @@ def rolling_profit_count(dataframe):
 # read data
 #-----------------------------------------------------------------
 if read_indicator:
-    print('Reading Indicator data')
-    file = datapath + MagicNumber + '_indicator.pickle'
-    print('-> reading -- ' + file)
-    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
-    indicator = pd.read_pickle(file)
+    indicator = pickle_read(datapath, MagicNumber, 
+        'indicator.pickle', 
+        'Reading Indicator data')    
     cols = indicator.columns.tolist()  # get rid of ambiguous columns 'Ticket', 'Open/Close'
     cols = cols[0:2] + cols[4:]
     indicator = indicator[cols]
 
 if read_order:
-    print('Reading Order data')
-    file = datapath + MagicNumber + '_orders.pickle'
-    print('-> reading -- ' + file)
-    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
-    orders = pd.read_pickle(file)
+    orders = pickle_read(datapath, MagicNumber, 
+        'orders.pickle', 
+        'Reading Order data')
 
 if read_history:
-    print('Reading Price History data')
-    file = datapath + MagicNumber + '_history.pickle'
-    print('-> reading -- ' + file)
-    print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
-    history = pd.read_pickle(file)
+    history = pickle_read(datapath, MagicNumber, 
+        'history.pickle', 
+        'Reading History data')    
 
 #-----------------------------------------------------------------
 # add Stats
@@ -78,25 +72,23 @@ if read_order:
 
 if read_history:
     print('Calculating stats for History Data')
-    add_rolling_stats(history, ['Close'])
+    add_rolling_stats(history, ('Open', 'Close'))
 
 #-----------------------------------------------------------------
 # pickle data files
 #-----------------------------------------------------------------
 if read_indicator:
-    print('Pickling Indicator Data with Stats')
-    file = datapath + MagicNumber + '_indicator_wStats.pickle'
-    print('-> writing -- ' + file)
-    indicator.to_pickle(file)
+    pickle_write(indicator, datapath, MagicNumber, 
+        'indicator_wStats.pickle', 
+        'Pickling Indicator Data with Stats added')
 
 if read_order:
-    print('Pickling Order Data with Stats')
-    file = datapath + MagicNumber + '_orders_wStats.pickle'
-    print('-> writing -- ' + file)
-    orders.to_pickle(file)
+    pickle_write(orders, datapath, MagicNumber, 
+        'orders_wStats.pickle', 
+        'Pickling Order Data with Stats added')
 
 if read_history:
-    print('Pickling History Data with Stats')
-    file = datapath + MagicNumber + '_history_wStats.pickle'
-    print('-> writing -- ' + file)
-    history.to_pickle(file)
+    pickle_write(history, datapath, MagicNumber, 
+        'history_wStats.pickle', 
+        'Pickling Price History Data with Stats added')    
+
