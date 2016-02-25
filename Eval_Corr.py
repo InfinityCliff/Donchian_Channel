@@ -35,3 +35,7 @@ if read_history:
     print('Correlating History Data')
     history_cor = history.corr()
 
+print(list(order_cor.columns.values))
+
+filter = (order_cor['Open Price'] > 0)
+print(order_cor[filter].ix[10:][['Open Price', 'Close Price', 'Profit']])
