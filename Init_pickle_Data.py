@@ -14,7 +14,7 @@ print('panda: ', pd.__version__)
 #-----------------------------------------------------------------
 # Init variables
 #-----------------------------------------------------------------
-
+history_file_name = 'EURUSD30.csv'
 
 #-----------------------------------------------------------------
 # read in Indicator data into dataframe
@@ -64,7 +64,7 @@ def read_order_data(head=False):
 # read in price history into dataframe
 #-----------------------------------------------------------------
 def read_price_history(start_date, end_date, head=False):
-    file = datapath + 'EURUSD1_2015.csv'
+    file = datapath + history_file_name
     print('-> reading -- ' + file)
     print("       mod -- %s" % time.ctime(os.path.getmtime(file)))
     dataframe = pd.read_csv(file, header=None)

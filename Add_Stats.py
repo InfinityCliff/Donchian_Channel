@@ -64,7 +64,7 @@ if read_history:
 #-----------------------------------------------------------------
 if read_indicator:
     print('Calculating stats for Indicator Data')
-    add_rolling_stats(indicator, indicator.columns[4:])
+    add_rolling_stats(indicator, indicator.columns[2:], window=672)
 
 if read_order:
     print('Calculating stats for Order Data')

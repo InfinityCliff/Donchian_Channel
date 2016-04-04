@@ -8,11 +8,11 @@ import time
 #-----------------------------------------------------------------
 # Common Variables
 #-----------------------------------------------------------------
-datapath = "data/"
-MagicNumber = "160001"
+MagicNumber = "160002"
+datapath = "data/" + MagicNumber + "/"
 read_indicator = True
 read_history = True
-read_order = True
+read_order = False
 
 #-----------------------------------------------------------------
 # function to convert 'DateTime' to seconds
